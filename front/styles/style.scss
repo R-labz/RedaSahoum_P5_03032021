@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Zen+Loop:ital@0;1&display=swap');
+body {
+    background-color: mintcream;
+    font-family: 'Zen Loop', cursive;
+}
+
+.topbar {
+    img {
+        width: 60%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+}
+
+nav {
+    float: right;
+    a {
+        margin-right: 30px;
+        font-size: 1.5em;
+        text-decoration: none;
+    }
+}
+
+footer {
+    margin-top: 200px;
+    p {
+        text-align:center;
+       font-size: 1.5em;
+    }
+}

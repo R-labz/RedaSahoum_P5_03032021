@@ -57,7 +57,7 @@ nav a {
 }
 
 .card {
-    flex: 0 0 25%;
+    flex: 1 0 25%;
     min-width: 250px;
     max-width: 378px;
     margin: 10px;
@@ -80,7 +80,11 @@ nav a {
             font-family: 'Zen Loop', cursive;
             font-size: 2rem;
         }
+        @media (min-width: 1030px) {
+
+        }
   }
+
   
 
 footer {

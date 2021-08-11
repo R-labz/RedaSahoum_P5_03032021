@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/front/styles/style.css">
+    <title>Mon panier</title>
+</head>
+<body>
+    <nav class="nav topbar__nav">
+		<ul>
+			<li>
+				<img class="topbar__logo" src="/front/images/logo.png" alt="Logo d'Orinoco">
+			</li>	
+			<li>
+				<a href="index.html" class="nav__link">Accueil</a>
+			</li>
+			<li id="nav-cart">
+				<a href="cart.html" class="nav__link"><i class="fas fa-shopping-basket"></i>Panier</a>
+			</li>	
+		</ul>
+	</nav>
+
+        <div id="order-array">
+            <div id="my-order-1">
+                <h3 id="my-order-1__name"></h3>
+                <img src="" alt="" id="my-order-1__img">
+                <p id="my-order-1__price"></p>
+            </div>
+
+            <div id="my-order-2">
+
+            </div>
+
+        </div>
+        
+        <form action="">
+            <div class="name-container">
+                <label for="name">Nom</label>
+                <input type="text" name="" id="name">
+            </div>
+
+            <div class="surname-container">
+                <label for="surname">Prénom</label>
+                <input type="text" name="" id="surname">
+            </div>
+
+            <div class="email">
+                <label for="email">Email</label>
+                <input type="text" id="email">
+            </div>
+
+            <div class="birthdate">
+                <label for="birthdate">Date de naissance</label>
+                <input type="text" id="birthdate">
+            </div>
+
+            <div class="adress">
+                <label for="adress">Adresse</label>
+                <input type="text" id="adress">
+            </div>
+
+            <div class="adress-next">
+                <label for="adress-next">Complément d'adresse</label>
+                <input type="text" id="adress-next">
+            </div>
+        </form>
+
+        <button id="order-button">Commander</button>
+
+
+
+
+
+<script src="/front/js/cart.js"></script>
+</body>
+</html>

@@ -1,22 +1,51 @@
 @import url("https://fonts.googleapis.com/css2?family=Zen+Loop:ital@0;1&display=swap");
+/*---------------------------PAGE INDEX----------------------------------*/
 body {
   background-color: mintcream;
   font-family: "Zen Loop", cursive;
+  margin: 0;
 }
 
-.topbar img {
-  width: 60%;
-  margin-right: auto;
-  margin-left: auto;
+a {
+  text-decoration: none;
 }
 
 nav {
-  float: right;
+  background-color: #f3e9f1;
 }
+
+nav img {
+  width: 300px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+@media (max-width: 770px) {
+  nav img {
+    width: 40%;
+    height: auto;
+    min-width: 191px;
+  }
+}
+nav ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  padding: 10px;
+}
+
 nav a {
-  margin-right: 30px;
-  font-size: 1.5em;
-  text-decoration: none;
+  font-size: 2rem;
+}
+
+#nav-cart {
+  padding-right: 10%;
 }
 
 #main {
@@ -27,10 +56,11 @@ nav a {
 }
 
 .card {
-  flex: 1 0 25%;
+  flex: 0 0 25%;
   min-width: 250px;
+  max-width: 378px;
   margin: 10px;
-  padding: 20px 20px 0;
+  padding: 20px 20px;
   text-align: center;
   border-radius: 8px;
   background: #fff2e1;
@@ -42,14 +72,72 @@ nav a {
   overflow: hidden;
 }
 .card img {
-  width: 300px;
-  height: 300px;
+  width: 90%;
+  height: auto;
+  margin: 10px auto;
+}
+.card h3 {
+  font-family: "Zen Loop", cursive;
+  font-size: 2rem;
 }
 
 footer {
   margin-top: 200px;
+  background-color: #f3e9f1;
+  height: 100px;
 }
 footer p {
   text-align: center;
   font-size: 1.5em;
+}
+
+/*----------------------------PAGE PRODUIT-------------------------------------*/
+#product-title {
+  display: flex;
+  width: 50%;
+  justify-content: space-around;
+}
+#product-title a {
+  text-decoration: none;
+}
+#product-title p {
+  font-size: 2rem;
+}
+
+#teddy {
+  max-height: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#teddy h3 {
+  font-size: 3rem;
+}
+#teddy p {
+  font-size: 2rem;
+  text-align: center;
+}
+
+#image {
+  max-width: 100%;
+  max-height: auto;
+}
+
+#purchase-btn {
+  border: none;
+  background: linear-gradient(65deg, #16de97, #5ef9a4);
+  width: 50%;
+  margin: 12px auto 0;
+  padding: 10px;
+  border-radius: 150px;
+  font-size: 1.2rem;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+#purchase-btn:hover {
+  filter: brightness(105%);
+  transform: translateX(2px);
 }/*# sourceMappingURL=style.css.map */

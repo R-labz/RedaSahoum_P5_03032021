@@ -16,12 +16,11 @@ const fetchProducts = async () => {
         document.getElementById("main").innerHTML = products.map((product) => 
         `
         <div class="card">
-           
+        <h3>${product.name}</h3>
             <img src=${product.imageUrl} alt="photo de ${product.name}"
-            <h3>${product.name}</h3>
-            <p>${product.colors}</p>
+
             <p>${product.description}</p>
-            <p>${product.price}</p>
+            <p><strong>${product.price/100}.00€</strong></p>
 
             <a href="article.html?id=${product._id}">Voir plus</a>
         </div>

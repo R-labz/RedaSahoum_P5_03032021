@@ -27,9 +27,25 @@ function displayData(productData) {
     document.getElementById('purchase-btn').onclick = (event) => {
         event.preventDefault()
 
-     localStorage.setItem("teddy", JSON.stringify(productData))
+        class Teddies {
+            constructor(firstname, price){
+            this.firstname = firstname
+            this.price = price
+            }
+        }
 
-    redirectToShoppingCart();
+        let teddy = new Teddies(productData.name, productData.price/100 + '.00€')
+        let arrayProductsAlreadyInCart = [];
+
+        // On récupère le contenu du local storage s'il y en a un, on l'insère dans le tableau arrayProductsAlreadyInCart, et on le renvoie vers le localStorage avec le nouveau produit ajouté.
+            if(localStorage.getItem("teddy") !==null) {
+            arrayProductsAlreadyInCart = JSON.parse(localStorage.getItem("teddy"));
+
+            // Si le LS est vide, on le crée avec le produit ajouté
+        }
+        arrayProductsInCart.push(teddy);
+        localStorage.setItem("teddy", JSON.stringify(arrayProductsAlreadyInCart));
+        redirectToShoppingCart();
         alert("Votre article a bien été ajouté au panier.")
       }
 }

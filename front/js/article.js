@@ -23,27 +23,28 @@ function displayData(productData) {
     document.getElementById("description").textContent = productData.description
     document.getElementById("price").textContent = productData.price/100 + "€"
     document.getElementById("image").src = productData.imageUrl;
-
+    console.log(productData)
     document.getElementById('purchase-btn').onclick = (event) => {
         event.preventDefault()
 
         class Teddies {
-            constructor(firstname, price){
+            constructor(_id, firstname, price){
+            this._id = _id    
             this.firstname = firstname
             this.price = price
             }
         }
 
-        let teddy = new Teddies(productData.name, productData.price/100 + '.00€')
+        let teddy = new Teddies(productData._id, productData.name, productData.price/100)
         let arrayProductsAlreadyInCart = [];
 
         // On récupère le contenu du local storage s'il y en a un, on l'insère dans le tableau arrayProductsAlreadyInCart, et on le renvoie vers le localStorage avec le nouveau produit ajouté.
             if(localStorage.getItem("teddy") !==null) {
             arrayProductsAlreadyInCart = JSON.parse(localStorage.getItem("teddy"));
-
+     
             // Si le LS est vide, on le crée avec le produit ajouté
         }
-        arrayProductsInCart.push(teddy);
+        arrayProductsAlreadyInCart.push(teddy);
         localStorage.setItem("teddy", JSON.stringify(arrayProductsAlreadyInCart));
         redirectToShoppingCart();
         alert("Votre article a bien été ajouté au panier.")

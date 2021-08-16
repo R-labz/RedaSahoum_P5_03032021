@@ -8,6 +8,9 @@
     <title>Mon panier</title>
 </head>
 <body>
+
+<!------------------NAVBAR---------------->
+
     <nav class="nav topbar__nav">
 		<ul>
 			<li>
@@ -22,52 +25,59 @@
 		</ul>
 	</nav>
 
+    <!---------------------LISTE PRODUITS COMMANDES--------------------------->
+
         <div id="order-array">
-            <div id="my-order-1">
-                <h3 id="my-order-1__name"></h3>
-                <img src="" alt="" id="my-order-1__img">
-                <p id="my-order-1__price"></p>
-            </div>
-
-            <div id="my-order-2">
-
-            </div>
+            <h3>Les produits sélectionnés:</h3>
 
         </div>
+
+
+        <!---------------------FORMULAIRE PERSONNEL--------------------------->
+
         
-        <form action="">
+        <form id="purchase-form" action="">
+            <h2>Remplissez le formulaire pour valider la commande</h2>
             <div class="name-container">
                 <label for="name">Nom</label>
-                <input type="text" name="" id="name">
+                <input type="text" name="" id="name" required>
             </div>
 
             <div class="surname-container">
                 <label for="surname">Prénom</label>
-                <input type="text" name="" id="surname">
+                <input type="text" name="" id="surname" required>
             </div>
 
-            <div class="email">
+            <div class="email-container">
                 <label for="email">Email</label>
-                <input type="text" id="email">
+                <input type="text" name="" id="email" required>
             </div>
 
-            <div class="birthdate">
+            <div class="birthdate-container">
                 <label for="birthdate">Date de naissance</label>
-                <input type="text" id="birthdate">
+                <input type="text" id="birthdate" name="" required>
             </div>
 
-            <div class="adress">
+            <div class="adress-container">
                 <label for="adress">Adresse</label>
-                <input type="text" id="adress">
+                <textarea id="adress" name="" required>
+                </textarea>
             </div>
 
-            <div class="adress-next">
-                <label for="adress-next">Complément d'adresse</label>
-                <input type="text" id="adress-next">
+            <div id="city-container">
+                <label for="city"> Ville</label>
+                <input type="text" id="city" name="" required>
             </div>
+
+            <div id="zipcode">
+                <label for="zipcode">Code Postal</label>
+                <input type="text" id="zipcode" name="" required>
+            </div>
+            <button id="order-button">Confirmer la commande</button>
+
         </form>
 
-        <button id="order-button">Commander</button>
+   
 
 
 

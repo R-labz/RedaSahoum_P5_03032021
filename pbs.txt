@@ -1,0 +1,14 @@
+
+    //Ajouter quantité des teddies
+
+    //Objet à deux propriétés
+    /*const order = {
+        contact: {
+          firstName: firstname,
+          lastName: lastname,
+          address: adress + ' ' + zipcode,
+          city: city,
+          email: email,
+        },
+        products: products,
+      }*/

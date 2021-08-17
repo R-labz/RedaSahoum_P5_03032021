@@ -1,6 +1,5 @@
 //Déclaration de la variable permettant d'accéder à mon local storage que l'on parse pour que les données puissent s'afficher en JSON
 let productsPurchased = JSON.parse(localStorage.getItem("teddy"));
-    console.log(productsPurchased);
 
     //------------------------AFFICHAGE DES PRODUITS DU PANIER-----------------//
 
@@ -38,7 +37,6 @@ listePanier.innerHTML = panierVide;
 
     //Références des boutons supprimer
     let deleteBtn = document.querySelectorAll(".delete-btn");
-    console.log(deleteBtn);
 
     for(let l = 0; l < deleteBtn.length; l++){
         deleteBtn[l].addEventListener("click" , (event) => {
@@ -46,7 +44,6 @@ listePanier.innerHTML = panierVide;
 
             //sélection de l'id du produit qui va être supprimé en cliquant
             let idDeleteBtn = productsPurchased[l]._id;
-            console.log(idDeleteBtn)
 
             //avec la méthode filter, je sélectionne les elts à garder et supp l'elt pour lequel le btn supp a été cliqué
             productsPurchased = productsPurchased.filter( el => el._id !== idDeleteBtn);
@@ -83,7 +80,7 @@ listePanier.innerHTML = panierVide;
     })
 
 
-    //******************** MONTANT TOTAL DU PANIER************************ */
+    //********** MONTANT TOTAL DU PANIER************** */
 
     let totalAmount = [];
 
@@ -93,8 +90,6 @@ listePanier.innerHTML = panierVide;
 
         //Mettre les prix du panier dans la variable totalAmount
         totalAmount.push( ProductsInCartPrice)
-
-        console.log(totalAmount)
     }
 
     //Additionner les prix qu'il y a dans le tableau de la variable totalAmount avec la méthode .reduce
@@ -121,39 +116,63 @@ listePanier.innerHTML = panierVide;
     sendForm.addEventListener("click", (e) => {
 e.preventDefault();
 
-        //Récupération des données du formulaire 
-        const formData = {
-            name: document.querySelector("#name").value,
-            surname: document.getElementById("surname").value,
-            email: document.querySelector("#email").value,
-            birthdate: document.getElementById("birthdate").value,
-            adress: document.getElementById("adress").value,
-            city: document.getElementById("city").value,
-            zipcode: document.getElementById("zipcode").value
+//Création/ définition d'une classe pour fabriquer l'objet dans lequel iront les values du formulaire
+class formData {
+        constructor(firstName, lastName, email, address, city) {
+            this.lastName = document.querySelector("#name").value;
+            this.firstName = document.getElementById("surname").value;
+            this.email = document.querySelector("#email").value;
+            this.address = document.getElementById("adress").value;
+            this.city = document.getElementById("city").value;
         }
-        console.log("formData")
-        console.log(formData)
-        
-        /*localStorage.setItem("name", document.querySelector("#name").value);
-        localStorage.setItem("surname", document.getElementById("surname").value);
-        localStorage.setItem("email", document.querySelector("#email").value);
-        localStorage.setItem("birthdate", document.getElementById("birthdate").value);
-        localStorage.setItem("adress", document.getElementById("adress").value);
-        localStorage.setItem("city", document.getElementById("city").value);
-        localStorage.setItem("zipcode", document.getElementById("zipcode").value);*/
-        //Mettre l'objet formData dans le LS
-        localStorage.setItem("formData", JSON.stringify(formData))
+    }
 
+    //Appel de l'instance de classe formData pour créer l'objet formData
+    const formValues = new formData();
+    console.log("formValues");
+    console.log(formValues);
+
+    //*******************GESTION DE VALIDATION DU FORM********** */
+    const textAlert = (value) => {
+        return `${value}: Donnée saisie incorrecte`
+    }
+    const regExpLastFirstCity = (value) => {
+        return /^[A-Za-z]{3,20}$/.test(value);
+    }
+
+    function firstNameControl() {
+        //Contrôle de la validité du prénom
+        const firstName = formValues.firstName;
+        if (regExpLastFirstCity(firstName)){
+            return true;
+        } else {
+            alert(textAlert("Prénom"));
+            return false;
+        }
+    }
+    function lastNameControl() {
+        //Contrôle de la validité du prénom
+        const lastName = formValues.lastName;
+        if (regExpLastFirstCity(lastName)){
+            return true;
+        } else {
+            alert("Chiffres et symboles ne sont pas autorisés \n Ecrire plus de 3 caractères.");
+            return false;
+        }
+    }
+
+    if (firstNameControl() && lastNameControl()) {
+    //Mettre l'objet formData dans le LS
+        localStorage.setItem("formData", JSON.stringify(formValues))
+ } else {
+    alert("Veuillez bien remplir le formulaire");
+  }
+    /********************FIN DE GESTION DE VALIDATION********* */
  
+
     //Mettre les values du formulaire et les produits sélectionnés dans un objet à envoyer vers le serveur
     const toSend = {
         productsPurchased, 
         formData
-    }
-    console.log("toSend")
-    console.log(toSend)
-    //Envoi de l'objet vers le serveur
-    })
-
-  
-
+    } 
+});

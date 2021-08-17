@@ -173,12 +173,24 @@ footer p {
 #purchase-form input {
   width: 50vw;
 }
+#purchase-form input:invalid {
+  border: 2px dashed red;
+}
+#purchase-form input:valid {
+  border: 1px solid black;
+}
 #purchase-form div {
   display: flex;
   flex-direction: column;
 }
 #purchase-form textarea {
   width: 50vw;
+}
+#purchase-form textarea:invalid {
+  border: 2px dashed red;
+}
+#purchase-form textarea:valid {
+  border: 1px solid black;
 }
 #purchase-form #order-button {
   margin: 20px 0;

@@ -22,7 +22,7 @@ listePanier.innerHTML = panierVide;
     for(k = 0; k < productsPurchased.length; k++){
         cartProductsStructure = cartProductsStructure + `
         <div class="container-recap">
-        <div> Quantité 1 - ${productsPurchased[k].firstname} ${productsPurchased[k].price}.00€- <button class="delete-btn"> supprimer </button> </div>
+        <div> Quantité: ${productsPurchased[k].quantity}  - ${productsPurchased[k].firstname} ${productsPurchased[k].price}.00€- <button class="delete-btn"> supprimer </button> </div>
         </div>
         `;
         
@@ -111,33 +111,40 @@ listePanier.innerHTML = panierVide;
     //Sélection du bouton envoyer le formulaire
     const sendForm = document.querySelector("#order-button")
 
-    //addEventListener
+/*******************ADDEVENTLISTENER****************** */
 
     sendForm.addEventListener("click", (e) => {
 e.preventDefault();
 
 //Création/ définition d'une classe pour fabriquer l'objet dans lequel iront les values du formulaire
-class formData {
-        constructor(firstName, lastName, email, address, city) {
+class contact {
+        constructor(firstName, lastName, address, city, email) {
             this.lastName = document.querySelector("#name").value;
             this.firstName = document.getElementById("surname").value;
-            this.email = document.querySelector("#email").value;
             this.address = document.getElementById("adress").value;
             this.city = document.getElementById("city").value;
+            this.email = document.querySelector("#email").value;
         }
     }
 
-    //Appel de l'instance de classe formData pour créer l'objet formData
-    const formValues = new formData();
+    //Appel de l'instance de classe contact pour créer l'objet contact
+    const formValues = new contact();
     console.log("formValues");
     console.log(formValues);
 
     //*******************GESTION DE VALIDATION DU FORM********** */
+
     const textAlert = (value) => {
         return `${value}: Donnée saisie incorrecte`
     }
     const regExpLastFirstCity = (value) => {
         return /^[A-Za-z]{3,20}$/.test(value);
+    }
+    const regExpAddress = (value) => {
+        return /^[A-Za-z0-9]{5,50}$/.test(value);
+    }
+    const regExpEmail = (value) => {
+        return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value);
     }
 
     function firstNameControl() {
@@ -146,24 +153,56 @@ class formData {
         if (regExpLastFirstCity(firstName)){
             return true;
         } else {
+            //errFirstName.textContent = "Veuillez bien reseigner le champ.";
             alert(textAlert("Prénom"));
             return false;
         }
     }
+
     function lastNameControl() {
-        //Contrôle de la validité du prénom
+        //Contrôle de la validité du nom
         const lastName = formValues.lastName;
         if (regExpLastFirstCity(lastName)){
             return true;
         } else {
-            alert("Chiffres et symboles ne sont pas autorisés \n Ecrire plus de 3 caractères.");
+            alert(textAlert("Nom"));
+            return false;
+        }
+    }
+    function addressControl() {
+        //Contrôle de la validité de l'adresse
+        const address = formValues.address;
+        if (regExpAddress(address)){
+            return true;
+        } else {
+            alert(textAlert("Adresse"));
+            return false;
+        }
+    }
+    function cityControl() {
+        //Contrôle de la validité de la ville
+        const city = formValues.city;
+        if (regExpLastFirstCity(city)){
+            return true;
+        } else {
+            alert(textAlert("Ville"));
+            return false;
+        }
+    }
+    function emailControl() {
+        //Contrôle de la validité du mail
+        const email = formValues.email;
+        if (regExpEmail(email)){
+            return true;
+        } else {
+            alert(textAlert("E-mail"));
             return false;
         }
     }
 
-    if (firstNameControl() && lastNameControl()) {
-    //Mettre l'objet formData dans le LS
-        localStorage.setItem("formData", JSON.stringify(formValues))
+    if (firstNameControl() && lastNameControl() && addressControl() && cityControl() && emailControl()) {
+    //Mettre l'objet contact dans le LS
+        localStorage.setItem("contact", JSON.stringify(formValues))
  } else {
     alert("Veuillez bien remplir le formulaire");
   }
@@ -173,6 +212,28 @@ class formData {
     //Mettre les values du formulaire et les produits sélectionnés dans un objet à envoyer vers le serveur
     const toSend = {
         productsPurchased, 
-        formData
+        contact,
     } 
+    console.log("toSend")
+    console.log(toSend)
+
+    //Envoi des données au serveur
+    const requestOptions = {
+        method: 'POST',
+        body: JSON.stringify(toSend),
+        headers: { 'Content-Type': 'application/json; charset=utf-8' },
+      }
+
+    fetch("http://localhost:3000/api/teddies/order", requestOptions)
+        .then((response) => response.JSON())
+        .then((json) => {
+        console.log(json)
+        localStorage.removeItem(productsPurchased)
+    })
+    .catch(() => {
+        alert("error")
+    })
+
+        
+
 });

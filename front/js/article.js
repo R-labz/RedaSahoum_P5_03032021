@@ -25,24 +25,43 @@ function displayData(productData) {
     document.getElementById("image").src = productData.imageUrl;
     console.log(productData)
 
+    /**************CHOIX COULEUR PRODUIT*********** */
+
+    const productColor = productData.colors;
+    
+    const productColorSelector = document.getElementById("product-color");
+
+    for(i = 0; i < productColor.length; i++){
+        console.log(productColor[i])
+        productColorSelector.innerHTML = `
+        <option value="[i]">${productColor[i]}</option>
+        <option value="[i]">${productColor[i]}</option>
+
+        `
+    } 
+
     /************CHOIX QUANTITE PRODUITS********** */
-    const quantityStructure = `
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    `;
+  
 
     const positionElementQuantite = document.querySelector("#quantite_produit");
-    positionElementQuantite.innerHTML = quantityStructure;
     const choixQuantite = positionElementQuantite.value;
-    console.log("choixQuantite");
-    console.log(choixQuantite);
+    console.log(choixQuantite)
+    
+     /*****ADD EVENT LISTENER DE LA QUANTITE******************** */
+
+    positionElementQuantite.addEventListener('change', (event) => {
+        alert(`you chose ${event.target.value} teddies`);
+        const quantityInLs = event.target.value;
+        localStorage.setItem("quantity", JSON.stringify(quantityInLs));
+    })
+
 
     /********************************************** */
 
     document.getElementById('purchase-btn').onclick = (event) => {
         event.preventDefault()
+
+        const quantityInLs = JSON.parse(localStorage.getItem("quantity"));
 
         class Teddies {
             constructor(_id, firstname, price, quantity){
@@ -53,8 +72,10 @@ function displayData(productData) {
             }
         }
 
-        let teddy = new Teddies(productData._id, productData.name, (productData.price * choixQuantite)/100, choixQuantite)
+        let teddy = new Teddies(productData._id, productData.name, (productData.price * quantityInLs)/100, quantityInLs)
         let arrayProductsAlreadyInCart = [];
+
+        localStorage.removeItem("quantity")
 
         // On récupère le contenu du local storage s'il y en a un, on l'insère dans le tableau arrayProductsAlreadyInCart, et on le renvoie vers le localStorage avec le nouveau produit ajouté.
             if(localStorage.getItem("teddy") !==null) {

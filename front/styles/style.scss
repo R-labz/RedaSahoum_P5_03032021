@@ -155,6 +155,10 @@ footer {
     transform: translateX(2px);
 }
 
+select {
+    font-size: 1.2em;
+}
+
 /*--------------------PAGE PANIER--------------------------*/
 #order-array {
     background-color: antiquewhite;
@@ -176,37 +180,40 @@ footer {
     margin-top: 50px;
     display: flex;
     flex-direction: column;
-    border: 2px solid lightskyblue;
-    background-color: lightgray;
+    background-color: white;
     align-items: center;
-    font-size: 1.5em;
+    font-size: 1.3em;
     input {
         width: 50vw;
-        
+        padding: 10px;
+        margin-bottom: 15px;
+        background-color: rgb(238, 229, 229);
+        border: none;
     }
-    input:invalid {
-        border: 2px dashed red;
-      }
-      
-      input:valid {
+    input:focus {
         border: 1px solid black;
+    }
+      input:valid {
+        border: 1px solid green;
+      }
+      input:invalid {
+          border: 1px solid red;
       }
 
     div {
         display: flex;
         flex-direction: column;
     }
-    textarea {
-        width: 50vw;
-    }
-    textarea:invalid {
-        border: 2px dashed red;
-      }
-      
-      textarea:valid {
-        border: 1px solid black;
-      }
+    
+   
     #order-button {
         margin: 20px 0;
+        font-size: 0.7em;
+        border-radius: 5px;
+        padding: 20px;
+        border: none;
+        background-color:blueviolet;
+        color: white;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     }
 }

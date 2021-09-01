@@ -144,6 +144,10 @@ footer p {
   transform: translateX(2px);
 }
 
+select {
+  font-size: 1.2em;
+}
+
 /*--------------------PAGE PANIER--------------------------*/
 #order-array {
   background-color: antiquewhite;
@@ -165,33 +169,37 @@ footer p {
   margin-top: 50px;
   display: flex;
   flex-direction: column;
-  border: 2px solid lightskyblue;
-  background-color: lightgray;
+  background-color: white;
   align-items: center;
-  font-size: 1.5em;
+  font-size: 1.3em;
 }
 #purchase-form input {
   width: 50vw;
+  padding: 10px;
+  margin-bottom: 15px;
+  background-color: #eee5e5;
+  border: none;
 }
-#purchase-form input:invalid {
-  border: 2px dashed red;
+#purchase-form input:focus {
+  border: 1px solid black;
 }
 #purchase-form input:valid {
-  border: 1px solid black;
+  border: 1px solid green;
+}
+#purchase-form input:invalid {
+  border: 1px solid red;
 }
 #purchase-form div {
   display: flex;
   flex-direction: column;
 }
-#purchase-form textarea {
-  width: 50vw;
-}
-#purchase-form textarea:invalid {
-  border: 2px dashed red;
-}
-#purchase-form textarea:valid {
-  border: 1px solid black;
-}
 #purchase-form #order-button {
   margin: 20px 0;
+  font-size: 0.7em;
+  border-radius: 5px;
+  padding: 20px;
+  border: none;
+  background-color: blueviolet;
+  color: white;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }/*# sourceMappingURL=style.css.map */

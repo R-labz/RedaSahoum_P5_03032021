@@ -1,5 +1,6 @@
 //Déclaration de la variable permettant d'accéder à mon local storage que l'on parse pour que les données puissent s'afficher en JSON
-let productsPurchased = JSON.parse(localStorage.getItem("teddy"));
+let products = JSON.parse(localStorage.getItem("teddy"));
+
 
     //------------------------AFFICHAGE DES PRODUITS DU PANIER-----------------//
 
@@ -7,7 +8,7 @@ let productsPurchased = JSON.parse(localStorage.getItem("teddy"));
     const listePanier = document.querySelector('#order-array')
 
     //si le panier est vide: afficher le panier est vide
-    if(productsPurchased === null || productsPurchased == 0) {
+    if(products === null || products == 0) {
     const panierVide = `
     <div class="container-panier-vide">
     <div> Le panier est vide </div>
@@ -19,15 +20,18 @@ listePanier.innerHTML = panierVide;
     console.log("Le panier n'est pas vide")
     let cartProductsStructure = [];
 
-    for(k = 0; k < productsPurchased.length; k++){
+    
+
+    for(k = 0; k < products.length; k++){
+        const quantity = JSON.parse(localStorage.getItem("quantity"));
         cartProductsStructure = cartProductsStructure + `
         <div class="container-recap">
-        <div> Quantité: ${productsPurchased[k].quantity}  - ${productsPurchased[k].firstname} ${productsPurchased[k].price}.00€- <button class="delete-btn"> supprimer </button> </div>
+        <div> Quantité: ${products[k].quantity}  - ${products[k].firstname} ${products[k].price}.00€- <button class="delete-btn"> supprimer </button> </div>
         </div>
         `;
         
     }
-        if(k == productsPurchased.length){
+        if(k == products.length){
         //injection de l'html dans la page panier
         listePanier.innerHTML = cartProductsStructure;
     }
@@ -43,17 +47,19 @@ listePanier.innerHTML = panierVide;
             event.preventDefault();
 
             //sélection de l'id du produit qui va être supprimé en cliquant
-            let idDeleteBtn = productsPurchased[l]._id;
+            let idDeleteBtn = products[l]._id;
 
             //avec la méthode filter, je sélectionne les elts à garder et supp l'elt pour lequel le btn supp a été cliqué
-            productsPurchased = productsPurchased.filter( el => el._id !== idDeleteBtn);
+            products = products.filter( el => el._id !== idDeleteBtn);
 
                 //Envoyer la variable dans le LS
-                localStorage.setItem("teddy", JSON.stringify(productsPurchased));
+                localStorage.setItem("teddy", JSON.stringify(products));
 
             //alerte pour avertir de la suppression de l'objet
             alert("Ce produit a été supprimé");
             window.location.href = "cart.html";
+
+            
         });
     }
     //sélection de l'id supprimé au click du bouton supprimer
@@ -85,8 +91,8 @@ listePanier.innerHTML = panierVide;
     let totalAmount = [];
 
     //chercher les prix dans le panier
-    for (let m = 0; m < productsPurchased.length; m++){
-        let ProductsInCartPrice = productsPurchased[m].price
+    for (let m = 0; m < products.length; m++){
+        let ProductsInCartPrice = products[m].price
 
         //Mettre les prix du panier dans la variable totalAmount
         totalAmount.push( ProductsInCartPrice)
@@ -117,20 +123,11 @@ listePanier.innerHTML = panierVide;
 e.preventDefault();
 
 //Création/ définition d'une classe pour fabriquer l'objet dans lequel iront les values du formulaire
-class contact {
-        constructor(firstName, lastName, address, city, email) {
-            this.lastName = document.querySelector("#name").value;
-            this.firstName = document.getElementById("surname").value;
-            this.address = document.getElementById("adress").value;
-            this.city = document.getElementById("city").value;
-            this.email = document.querySelector("#email").value;
-        }
-    }
+
+    
 
     //Appel de l'instance de classe contact pour créer l'objet contact
-    const formValues = new contact();
-    console.log("formValues");
-    console.log(formValues);
+
 
     //*******************GESTION DE VALIDATION DU FORM********** */
 
@@ -141,15 +138,22 @@ class contact {
         return /^[A-Za-z]{3,20}$/.test(value);
     }
     const regExpAddress = (value) => {
-        return /^[A-Za-z0-9]{5,50}$/.test(value);
+        return /^[a-zA-Z0-9\s,.'-]{3,}$/.test(value);
     }
     const regExpEmail = (value) => {
         return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value);
     }
 
+    const lastName = document.querySelector("#name").value;
+    const firstName = document.getElementById("surname").value;
+    const address = document.getElementById("address").value;
+    const city = document.getElementById("city").value;
+    const email = document.querySelector("#email").value;
+    
+
     function firstNameControl() {
         //Contrôle de la validité du prénom
-        const firstName = formValues.firstName;
+        //const firstName = formValues.firstName;
         if (regExpLastFirstCity(firstName)){
             return true;
         } else {
@@ -161,7 +165,7 @@ class contact {
 
     function lastNameControl() {
         //Contrôle de la validité du nom
-        const lastName = formValues.lastName;
+        //const lastName = formValues.lastName;
         if (regExpLastFirstCity(lastName)){
             return true;
         } else {
@@ -171,7 +175,7 @@ class contact {
     }
     function addressControl() {
         //Contrôle de la validité de l'adresse
-        const address = formValues.address;
+        //const address = formValues.address;
         if (regExpAddress(address)){
             return true;
         } else {
@@ -181,7 +185,7 @@ class contact {
     }
     function cityControl() {
         //Contrôle de la validité de la ville
-        const city = formValues.city;
+        //const city = formValues.city;
         if (regExpLastFirstCity(city)){
             return true;
         } else {
@@ -191,7 +195,7 @@ class contact {
     }
     function emailControl() {
         //Contrôle de la validité du mail
-        const email = formValues.email;
+        //const email = formValues.email;
         if (regExpEmail(email)){
             return true;
         } else {
@@ -202,17 +206,28 @@ class contact {
 
     if (firstNameControl() && lastNameControl() && addressControl() && cityControl() && emailControl()) {
     //Mettre l'objet contact dans le LS
-        localStorage.setItem("contact", JSON.stringify(formValues))
+
  } else {
     alert("Veuillez bien remplir le formulaire");
   }
     /********************FIN DE GESTION DE VALIDATION********* */
  
+    products = Object.values(products).map((product) => {
+        return product._id
+    }) 
+ 
 
     //Mettre les values du formulaire et les produits sélectionnés dans un objet à envoyer vers le serveur
+  
     const toSend = {
-        productsPurchased, 
-        contact,
+        products: products, 
+        contact: {
+            lastName: lastName,
+            firstName: firstName,
+            address: address,
+            city: city,
+            email: email
+        },
     } 
     console.log("toSend")
     console.log(toSend)
@@ -225,15 +240,16 @@ class contact {
       }
 
     fetch("http://localhost:3000/api/teddies/order", requestOptions)
-        .then((response) => response.JSON())
+        .then((response) => response.json())
         .then((json) => {
         console.log(json)
-        localStorage.removeItem(productsPurchased)
+        localStorage.removeItem(products)
     })
-    .catch(() => {
-        alert("error")
+    .catch((error) => {
+        console.log(error)
     })
 
         
 
 });
+
